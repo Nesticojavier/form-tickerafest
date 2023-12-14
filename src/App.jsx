@@ -1,7 +1,4 @@
 import "tailwindcss/tailwind.css";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import map from "./assets/map.png";
 import logo from "./assets/retro-experience.png";
 import tickerafest from "./assets/logo-tickerafest.png";
 import Form from "./components/form.jsx";

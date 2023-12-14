@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
@@ -19,7 +5,6 @@ import PaymentMethodCard from "./cards/PaymentMethodCard";
 import map from "../assets/map.png";
 import { useForm } from "react-hook-form";
 import { RULES } from "../utils/validators";
-import Warning from "./icons/warning";
 import ErrorMessage from "./ErrorMessage";
 import {
   ticketTypes,
@@ -29,12 +14,14 @@ import {
   ZELLE_METHOD,
   TICKET,
 } from "../utils/staticFormData";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Form() {
+  const [loading, setLoading] = useState(false);
   const [selectedTicketType, setSelectedTicketType] = useState(ticketTypes[0]);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
@@ -50,20 +37,40 @@ export default function Form() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    setValue,
-    reset,
   } = useForm();
 
   const onSubmit = handleSubmit((data) => {
+    data.ticketType = selectedTicketType;
+    data.paymentMethod = selectedPaymentMethod;
     console.log(data);
-    console.log("Enviar al backend");
+    setLoading(true)
+    console.log("Enviando al backend...");
+    setTimeout(() => {
+      setLoading(false)
+      console.log("Enviado");
+    }, 4000);
   });
 
-  // console.log(selectedTicketType);
-  // console.log(selectedPaymentMethod);
   return (
     <div className="bg-black">
+      {loading && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 9999,
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-white text-center text-2xl font-bold mb-4">
           RESERVE SU ENTRADA AQUÍ
