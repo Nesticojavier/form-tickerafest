@@ -15,9 +15,7 @@
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid";
-import MobilePayment from "./cards/MobilePayment";
-import Transfer from "./cards/Transfer";
-import Zelle from "./cards/Zelle";
+import PaymentMethodCard from "./cards/PaymentMethodCard";
 import map from "../assets/map.png";
 import { useForm } from "react-hook-form";
 import { RULES } from "../utils/validators";
@@ -369,9 +367,9 @@ export default function Form() {
               </fieldset>
 
               {/* Using cards */}
-              {selectedPaymentMethod === "mobile-payment" && <MobilePayment />}
-              {selectedPaymentMethod === "transfer" && <Transfer />}
-              {selectedPaymentMethod === "zelle" && <Zelle />}
+              {selectedPaymentMethod === "mobile-payment" && <PaymentMethodCard method={MOBILE_PAYMENTS}/>}
+              {selectedPaymentMethod === "transfer" && <PaymentMethodCard method={TRANSFER_METHOD}/>}
+              {selectedPaymentMethod === "zelle" && <PaymentMethodCard method={ZELLE_METHOD}/>}
 
               <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
                 <div className="col-span-4">
@@ -461,5 +459,51 @@ const TICKET = [
   {
     id: 10,
     name: "B5",
+  },
+];
+
+
+const MOBILE_PAYMENTS = [
+  {
+    name: "Banco",
+    value: "Banco Mercantil (0105)",
+  },
+  {
+    name: "Teléfono",
+    value: "0412370XXXX",
+  },
+  {
+    name: "RIF",
+    value: "J-26946571",
+  },
+];
+
+const TRANSFER_METHOD = [
+  {
+    name: "Banco",
+    value: "Banco Mercantil",
+  },
+  {
+    name: "Número de cuenta",
+    value: "0105XXXXXXXXXXXX",
+  },
+  {
+    name: "RIF",
+    value: "J-26946571",
+  },
+];
+
+const ZELLE_METHOD = [
+  {
+    name: "Dato 1",
+    value: "XXXXXXXXXXXXXXXXX",
+  },
+  {
+    name: "Dato 2",
+    value: "XXXXXXXXXXXXXXXXX",
+  },
+  {
+    name: "Dato 3",
+    value: "XXXXXXXXXXXXXXXXX",
   },
 ];
