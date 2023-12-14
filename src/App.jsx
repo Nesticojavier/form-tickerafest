@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import map from "./assets/map.png";
 import logo from "./assets/retro-experience.png";
 import tickerafest from "./assets/logo-tickerafest.png";
-import { INPUTS } from "./utils/validators";
 import Form from "./components/form.jsx";
 
 function App() {
@@ -67,48 +66,5 @@ function App() {
     </>
   );
 }
-
-const TICKET = [
-  {
-    id: 1,
-    name: "A1",
-  },
-  {
-    id: 2,
-    name: "A2",
-  },
-  {
-    id: 3,
-    name: "A3",
-  },
-  {
-    id: 4,
-    name: "A4",
-  },
-  {
-    id: 5,
-    name: "A5",
-  },
-  {
-    id: 6,
-    name: "B1",
-  },
-  {
-    id: 7,
-    name: "B2",
-  },
-  {
-    id: 8,
-    name: "B3",
-  },
-  {
-    id: 9,
-    name: "B4",
-  },
-  {
-    id: 10,
-    name: "B5",
-  },
-];
 
 export default App;
