@@ -21,41 +21,21 @@ import { useForm } from "react-hook-form";
 import { RULES } from "../utils/validators";
 import Warning from "./icons/warning";
 import ErrorMessage from "./ErrorMessage";
-
-const deliveryMethods = [
-  {
-    id: 1,
-    title: "Oro",
-    turnaround: "Mesa (10 personas)",
-    price: "800 $",
-  },
-  {
-    id: 2,
-    title: "Plata",
-    turnaround: "Mesa (10 personas)",
-    price: "600 $",
-  },
-  {
-    id: 3,
-    title: "General",
-    turnaround: "De pie",
-    price: "20 $",
-  },
-];
-const paymentMethods = [
-  { id: "mobile-payment", title: "Pago Móvil" },
-  { id: "transfer", title: "Transferencia" },
-  { id: "zelle", title: "Zelle" },
-];
+import {
+  ticketTypes,
+  paymentMethods,
+  MOBILE_PAYMENTS,
+  TRANSFER_METHOD,
+  ZELLE_METHOD,
+  TICKET,
+} from "../utils/staticFormData";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Form() {
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
-    deliveryMethods[0]
-  );
+  const [selectedTicketType, setSelectedTicketType] = useState(ticketTypes[0]);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     paymentMethods[0].id
@@ -80,7 +60,7 @@ export default function Form() {
     console.log("Enviar al backend");
   });
 
-  // console.log(selectedDeliveryMethod);
+  // console.log(selectedTicketType);
   // console.log(selectedPaymentMethod);
   return (
     <div className="bg-black">
@@ -225,18 +205,18 @@ export default function Form() {
             {/* Buy Information */}
             <div className="mt-10 border-t border-gray-200 pt-10">
               <RadioGroup
-                value={selectedDeliveryMethod}
-                onChange={setSelectedDeliveryMethod}
+                value={selectedTicketType}
+                onChange={setSelectedTicketType}
               >
                 <RadioGroup.Label className="text-lg font-bold text-white">
                   Información de la compra
                 </RadioGroup.Label>
 
                 <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                  {deliveryMethods.map((deliveryMethod) => (
+                  {ticketTypes.map((ticketType) => (
                     <RadioGroup.Option
-                      key={deliveryMethod.id}
-                      value={deliveryMethod}
+                      key={ticketType.id}
+                      value={ticketType}
                       className={({ checked, active }) =>
                         classNames(
                           checked ? "border-transparent" : "border-gray-300",
@@ -253,19 +233,19 @@ export default function Form() {
                                 as="span"
                                 className="block text-sm font-bold text-black"
                               >
-                                {deliveryMethod.title}
+                                {ticketType.title}
                               </RadioGroup.Label>
                               <RadioGroup.Description
                                 as="span"
                                 className="mt-1 flex items-center text-sm text-gray-700"
                               >
-                                {deliveryMethod.turnaround}
+                                {ticketType.turnaround}
                               </RadioGroup.Description>
                               <RadioGroup.Description
                                 as="span"
                                 className="mt-6 text-sm font-bold text-black"
                               >
-                                {deliveryMethod.price}
+                                {ticketType.price}
                               </RadioGroup.Description>
                             </span>
                           </span>
@@ -367,9 +347,15 @@ export default function Form() {
               </fieldset>
 
               {/* Using cards */}
-              {selectedPaymentMethod === "mobile-payment" && <PaymentMethodCard method={MOBILE_PAYMENTS}/>}
-              {selectedPaymentMethod === "transfer" && <PaymentMethodCard method={TRANSFER_METHOD}/>}
-              {selectedPaymentMethod === "zelle" && <PaymentMethodCard method={ZELLE_METHOD}/>}
+              {selectedPaymentMethod === "mobile-payment" && (
+                <PaymentMethodCard method={MOBILE_PAYMENTS} />
+              )}
+              {selectedPaymentMethod === "transfer" && (
+                <PaymentMethodCard method={TRANSFER_METHOD} />
+              )}
+              {selectedPaymentMethod === "zelle" && (
+                <PaymentMethodCard method={ZELLE_METHOD} />
+              )}
 
               <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
                 <div className="col-span-4">
@@ -418,92 +404,3 @@ export default function Form() {
     </div>
   );
 }
-
-const TICKET = [
-  {
-    id: 1,
-    name: "A1",
-  },
-  {
-    id: 2,
-    name: "A2",
-  },
-  {
-    id: 3,
-    name: "A3",
-  },
-  {
-    id: 4,
-    name: "A4",
-  },
-  {
-    id: 5,
-    name: "A5",
-  },
-  {
-    id: 6,
-    name: "B1",
-  },
-  {
-    id: 7,
-    name: "B2",
-  },
-  {
-    id: 8,
-    name: "B3",
-  },
-  {
-    id: 9,
-    name: "B4",
-  },
-  {
-    id: 10,
-    name: "B5",
-  },
-];
-
-
-const MOBILE_PAYMENTS = [
-  {
-    name: "Banco",
-    value: "Banco Mercantil (0105)",
-  },
-  {
-    name: "Teléfono",
-    value: "0412370XXXX",
-  },
-  {
-    name: "RIF",
-    value: "J-26946571",
-  },
-];
-
-const TRANSFER_METHOD = [
-  {
-    name: "Banco",
-    value: "Banco Mercantil",
-  },
-  {
-    name: "Número de cuenta",
-    value: "0105XXXXXXXXXXXX",
-  },
-  {
-    name: "RIF",
-    value: "J-26946571",
-  },
-];
-
-const ZELLE_METHOD = [
-  {
-    name: "Dato 1",
-    value: "XXXXXXXXXXXXXXXXX",
-  },
-  {
-    name: "Dato 2",
-    value: "XXXXXXXXXXXXXXXXX",
-  },
-  {
-    name: "Dato 3",
-    value: "XXXXXXXXXXXXXXXXX",
-  },
-];

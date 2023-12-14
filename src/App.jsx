@@ -7,21 +7,9 @@ import tickerafest from "./assets/logo-tickerafest.png";
 import Form from "./components/form.jsx";
 
 function App() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setValue,
-    reset,
-  } = useForm();
-
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    console.log("Enviar al backend");
-  });
   return (
     <>
+      {/* Header */}
       <div
         className="h-auto bg-gradient-to-b from-myblue to-black flex flex-col p-12 items-center"
         // className="bg-[linear-gradient(to_bottom,rgba(254,21,119,0.5),#000),url('/src/assets/map.png')] h-40"
@@ -39,12 +27,12 @@ function App() {
         </div>
       </div>
 
-      
-
+      {/* FORM */}
       <div className="bg-red-500">
         <Form />
       </div>
 
+      {/* FOOTER */}
       <div className="bg-[linear-gradient(to_top,rgba(0,0,0,0.0),#000),url('/src/assets/bg-footer.jpg')] h-80 w-full bg-cover bg-center p-16">
         <div className="h-full flex flex-col items-center justify-end">
           <a
