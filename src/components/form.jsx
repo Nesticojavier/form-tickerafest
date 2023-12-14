@@ -19,21 +19,11 @@ import MobilePayment from "./cards/MobilePayment";
 import Transfer from "./cards/Transfer";
 import Zelle from "./cards/Zelle";
 import map from "../assets/map.png";
+import { useForm } from "react-hook-form";
+import { RULES } from "../utils/validators";
+import Warning from "./icons/warning";
+import ErrorMessage from "./ErrorMessage";
 
-const products = [
-  {
-    id: 1,
-    title: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Black",
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-  },
-  // More products...
-];
 const deliveryMethods = [
   {
     id: 1,
@@ -78,15 +68,32 @@ export default function Form() {
     console.log(event.target.value);
   };
 
-  console.log(selectedDeliveryMethod);
-  console.log(selectedPaymentMethod);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    reset,
+  } = useForm();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    console.log("Enviar al backend");
+  });
+
+  // console.log(selectedDeliveryMethod);
+  // console.log(selectedPaymentMethod);
   return (
     <div className="bg-black">
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h1 className="text-white text-center text-2xl font-bold mb-4">
           RESERVE SU ENTRADA AQUÍ
         </h1>
-        <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+        <form
+          className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
+          onSubmit={onSubmit}
+        >
           <div>
             <div className="">
               <h2 className="text-lg font-bold text-white">
@@ -96,7 +103,7 @@ export default function Form() {
               <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                 <div>
                   <label
-                    htmlFor="first-name"
+                    htmlFor="name"
                     className="block text-sm font-medium text-white"
                   >
                     Nombre
@@ -104,12 +111,14 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      id="first-name"
-                      name="first-name"
-                      autoComplete="given-name"
+                      id="name"
+                      {...register("name", RULES.name)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.name && (
+                    <ErrorMessage message={errors.name.message} />
+                  )}
                 </div>
 
                 <div>
@@ -122,17 +131,19 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      id="last-name"
-                      name="last-name"
-                      autoComplete="family-name"
+                      id="lastname"
+                      {...register("lastname", RULES.lastname)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.lastname && (
+                    <ErrorMessage message={errors.lastname.message} />
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="company"
+                    htmlFor="idcard"
                     className="block text-sm font-medium text-white"
                   >
                     Cédula/RIF
@@ -140,16 +151,20 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="company"
-                      id="company"
+                      id="idcard"
+                      placeholder="V-XXXXXXXX, J-XXXXXXXX, ..."
+                      {...register("idcard", RULES.idcard)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.idcard && (
+                    <ErrorMessage message={errors.idcard.message} />
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="email-address"
+                    htmlFor="email"
                     className="block text-sm font-medium text-white"
                   >
                     Correo electrónico
@@ -157,17 +172,19 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="email"
-                      id="email-address"
-                      name="email-address"
-                      autoComplete="email"
+                      id="email"
+                      {...register("email", RULES.email)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.email && (
+                    <ErrorMessage message={errors.email.message} />
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="address"
+                    htmlFor="city"
                     className="block text-sm font-medium text-white"
                   >
                     Ciudad
@@ -175,12 +192,14 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="address"
-                      id="address"
-                      autoComplete="street-address"
+                      id="city"
+                      {...register("city", RULES.city)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.city && (
+                    <ErrorMessage message={errors.city.message} />
+                  )}
                 </div>
 
                 <div className="sm:col-span-2">
@@ -193,12 +212,14 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="phone"
                       id="phone"
-                      autoComplete="tel"
+                      {...register("phone", RULES.phone)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.phone && (
+                    <ErrorMessage message={errors.phone.message} />
+                  )}
                 </div>
               </div>
             </div>
@@ -282,9 +303,7 @@ export default function Form() {
                   <select
                     defaultValue=""
                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
-                    // {...register("ticket", {
-                    //   required: true,
-                    // })}
+                    {...register("ticket", RULES.ticket)}
                   >
                     <option value="" disabled>
                       Seleccione la entrada
@@ -297,6 +316,9 @@ export default function Form() {
                       );
                     })}
                   </select>
+                  {errors.ticket && (
+                    <ErrorMessage message={errors.ticket.message} />
+                  )}
                 </div>
               </div>
             </div>
@@ -354,7 +376,7 @@ export default function Form() {
               <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
                 <div className="col-span-4">
                   <label
-                    htmlFor="card-number"
+                    htmlFor="reference"
                     className="block text-sm font-medium text-white"
                   >
                     Refencia de la transacción
@@ -362,12 +384,14 @@ export default function Form() {
                   <div className="mt-1">
                     <input
                       type="text"
-                      id="card-number"
-                      name="card-number"
-                      autoComplete="cc-number"
+                      id="reference"
+                      {...register("reference", RULES.reference)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-myblue focus:ring-myblue sm:text-sm"
                     />
                   </div>
+                  {errors.reference && (
+                    <ErrorMessage message={errors.reference.message} />
+                  )}
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@ export const RULES = {
   idcard: {
     required: {
       value: true,
-      message: "Cédula o pasaporte requerido",
+      message: "Cédula, pasaporte o RIF requerido",
     },
     pattern: {
       value: /^[VJGEvjge]-\d{7,9}$/,
@@ -58,6 +58,28 @@ export const RULES = {
     pattern: {
       value: /^[0-9]{11}$/,
       message: "Número de teléfono inválido.",
+    },
+  },
+
+  ticket: {
+    required: {
+      value: true,
+      message: "Debe seleccionar una entrada",
+    },
+  },
+
+  reference: {
+    required: {
+      value: true,
+      message: "Debe agregar referencia de pago",
+    },
+    minLength: {
+      value: 4,
+      message: "Debe ingresar mínimo 4 dígitos",
+    },
+    pattern: {
+      value: /^[0-9]/,
+      message: "Sólo puede ingresar números",
     },
   },
 };
