@@ -30,7 +30,7 @@ function App() {
       </div>
 
       {/* FOOTER */}
-      <div className="bg-[linear-gradient(to_top,rgba(0,0,0,0.0),#000),url('/src/assets/bg-footer.jpg')] h-80 w-full bg-cover bg-center p-16">
+      <div className="bg-[linear-gradient(to_top,rgba(0,0,0,0.0),#000),url('/src/assets/bg-footer.jpg')] h-500 w-full bg-cover p-16">
         <div className="h-full flex flex-col items-center justify-end">
           <a
             className="h-full flex flex-col items-center justify-end"

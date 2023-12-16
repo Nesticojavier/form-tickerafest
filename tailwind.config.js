@@ -7,6 +7,9 @@ export default {
         fucsia: "#fe1577",
         myblue: "#16a4e1",
       },
+      height: {
+        500: "500px",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
